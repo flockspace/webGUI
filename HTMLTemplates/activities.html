@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<!-- JQUERY 
+        <script src="static/welcome-page/js/jquery.min.js"></script>
+		<script src="static/welcome-page/js/modernizr.custom.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+
+
+</head>
+<body>
+<form id="myForm" action="http://127.0.0.1/view" method="GET">{% csrf_token %}
+First_Name:<input type="text" name="first_name" id="First Name" value="">
+Last_Name:<input type="text" name="last_name" id="Last Name" value="">
+userId:<input type="text" name="id" id="id" value="">
+<input type="submit"></input>
+
+<!--<div id='upload_image' style="height:500px;width:550px;position:absolute;top-margin:50%;right:50%;border:0px solid;padding:10px;background-color:#F0F0F3;border-radius:9px; display:inline;">
+					<form id="profile-pic-form" method="POST" action="http://127.0.0.1/changeprofilepic" 
+						enctype="multipart/form-data">{% csrf_token %}
+						<button id='close' href="javascript:void(0);" onclick="dontDisplay('upload_image')" style="right:5;top:5;float:right;color:red">X</button>
+						<div style="height:400px;width:500px;border:0px solid;padding:10px;background-color:#FFFFFF;border-radius:2px;"></div>
+						<input type="file" name="fileToUpload" form="profile-pic-form" id="profile_pic" ><br>
+						<input type="submit" name="" onclick="dontDisplay('upload_image')" style="float:left;margin:0 75% 0 25%;">
+						
+					</form>
+				</div> -->
+
+
+</form>
+<script type="text/javascript">
+		function submitForm(){
+			document.getElementById('inMyself').value="programmer"
+			document.getElementById('inMyph').value="9581019014";
+			document.getElementById('inMail').value="9581019014@gmail.com";
+			document.getElementById('myForm').submit();
+		}
+		
+	</script>
+</body>
+</html>

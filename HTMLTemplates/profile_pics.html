@@ -1,0 +1,15 @@
+<!-- profile pics -->
+
+{% block profile_pics %}
+
+<div id="profile-pic" style="width:210px; height:210px; float:left;margin:2% 2% 2% 2%;background-color:white">
+	<button type="button" id="change_prof_pic" onclick="profile_pic_change()" style="display:none">Edit</button>
+		<script type="text/javascript">
+			function change_profile_pic(){
+
+			}
+		</script>
+	<img class='img-circle' src='{{ instance_image_url }}' style="border-radius: 50%;background-size:cover;width:210px; height:210px;" />
+</div>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+<html>
+<head>
+	
+</head>
+<body>
+	<h1>Name of website</h1>
+		<br>
+		<br>
+		
+                <h5>Login to Web App</h5>
+                <!--Make sure to use either domain or IP in all URLs http://127.0.0.1/register -->
+                <form id="register" method="post" action="http://127.0.0.1/register" >{% csrf_token %} <!-- Keep action-->
+                    <p><input type="text" name="first_name" value="" ></p>
+                    <p><input type="text" name="last_name" value="" ></p>
+                    <p><input type="text" name="email" value="" ></p>
+                    <p><input type="text" name="username" value="" placeholder="Username or Email"></p>
+                    <p><input type="password" name="passwd_1" value="" placeholder="Password"></p>
+                    <p><input type="password" name="passwd_2" value="" placeholder="Password"></p>
+                    <p class="remember_me">
+                    <label>
+                    	<input type="checkbox" name="remember_me" id="remember_me">
+                        Remember me on this computer
+                        </label>
+                    </p>
+                    <p class="submit"><input type="submit" name="commit" value="Login"></p>
+                </form>
+                    <div class='LoginResponse'>
+                    </div>
+            </div>
+                    <div class="login-help">
+                      <p>Forgot your password? <a href="index.html">Click here to reset it</a>.</p>
+        
+</body>>
+</html>

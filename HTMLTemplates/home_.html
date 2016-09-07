@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+	<meta charset="utf-8">
+
+	<!-- TITLE OF SITE-->
+    <title> name of website </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+
+
+        
+        
+    <!-- FAVICON -->
+    <link rel="icon" href="static/user-info/images/favicon.ico">
+    <link rel="apple-touch-icon" sizes="72x72" href="static/user-info/images/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="static/user-info/images/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="static/user-info/images/apple-icon-114x114.png">
+
+    <!-- ========================================
+            Stylesheets
+    ==========================================--> 
+        
+    <!-- MATERIALIZE CORE CSS -->
+    <link href="static/user-info/css/materialize.min.css" rel="stylesheet">
+        
+
+    <!-- ADDITIONAL CSS -->
+    <link rel="stylesheet" href="static/user-info/css/animate.css">
+        
+
+    <!-- FONTS -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        
+
+    <!--FONTAWESOME CSS-->
+    <link href="static/user-info/icons/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> 
+        
+
+    <!-- CUSTOM STYLE -->
+    <link href="static/user-info/css/style.css" rel="stylesheet">
+        
+
+    <!-- RESPONSIVE CSS-->
+    <link href="static/user-info/css/responsive.css" rel="stylesheet">
+
+    <!-- COLORS -->        
+    <link rel="alternate stylesheet" href="static/user-info/css/colors/red.css" title="red">
+    <link rel="alternate stylesheet" href="static/user-info/css/colors/purple.css" title="purple">
+    <link rel="alternate stylesheet" href="static/user-info/css/colors/orange.css" title="orange">
+    <link rel="alternate stylesheet" href="static/user-info/css/colors/green.css" title="green">
+    <link rel="stylesheet" href="static/user-info/css/colors/lime.css" title="lime">
+
+        
+    <!-- STYLE SWITCH STYLESHEET ONLY FOR DEMO -->
+    <link rel="stylesheet" href="static/user-info/css/demo.css">
+        
+    <!--[if lt IE 9]><script src="static/user-info/js/ie8-responsive-file-warning.js"></script><![endif] -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <style type="text/css">
+    	body {
+		    margin: 0;
+		    background-color: #FFF8F6;
+		    font-family: 'Liberation Sans', Arial, sans-serif;
+		}
+
+		h1 {
+		    text-align: center;
+		}
+
+		#post_content {
+		    margin:6 auto;
+		    padding: 10;
+		    width: 680px;
+		    height: 480px;
+		    align-content: right;
+		    list-style-type: none;
+		    background-color: white;
+		    object-position: center;
+		    background-position: center;
+		}
+
+		#background {
+		    margin: 0 auto;
+		    padding: 0;
+		    width: 720px; 
+		    height: 850px;
+		    list-style-type: none;
+		    background-color: white;
+		    border-style:solid;
+		    border-color:#EFE6E3; 
+		    border-width:2px
+		}
+    </style>
+    
+</head>
+<body>
+	
+	<script type="text/javascript" src="static/js/scroll_jquery.js"></script>
+	<!-- top-bar wrapper-->
+	<div id="top-bar_wrap" style="width:100%;height:325px;background-color:#FFF8F6;position:center;margin: 0 auto 0 auto; ">
+		<!-- top-bar colorcode:FA2C00-->
+		<div style="width:100%;height:50px;background-color:#FF0800;position:center;margin: 0 auto 0 auto;">
+			<!-- settings-->
+			<div class="col l3 m12 s12 icon">
+					<a href="http://127.0.0.1/logout">
+                    <i class="fa fa-sign-out" aria-hidden="true" style="color:white;font-size:48px;float:right;margin:0 2% 0 2%;">
+                    </i> <!-- logout -->
+                    </a>
+            </div>
+		</div>
+
+		<!-- Profile pics and information section -->
+		<div id="profile-pic" style="width:210px; height:210px; float:left;margin:2% 2% 2% 5%;background-color:white" >
+			<form id="profile-pic-form" method="POST" action="http://127.0.0.1/changeprofilepic" enctype="multipart/form-data">{% csrf_token %}
+				<img class='img-circle' src='media/{{ image_id }}' style="border-radius: 50%;background-size:cover;width:210px; height:210px;" onmouseleave="hide('imageHiddenDiv')" onmouseover="show('change_icon')"/>
+					<!-- tag to show change pic icon -->
+					<div id='imageHiddenDiv' style="height:10%;width:20%;position:absolute;bottom:57%;right:71%;padding:0px;background:transparent;border-radius:9px:visibility:hidden">
+						<img id='change_icon' src='static/welcome-page/img/change_pic_icon.png' style="height:30px;width:30px;position:absolute;bottom:57%;right:77%;margin:2% 2% 2% 2%;visibility:hidden" onclick="show('upload_image')" onmouseleave="hide('change_icon')" />
+					</div>
+					<!-- tag to enable upload form -->
+					<div id='upload_image' style="height:250px;width:250px;position:absolute;top-margin:100%;right:80%;border:1px solid;padding:10px;background:#FFFFFF;border-radius:9px; visibility:hidden" 
+						onmousemove="cascadeHide('upload_image','change_icon')">
+						<button id='close' onclick="cascadeHide('upload_image','change_icon')" style="right:5;top:5;float:right">X</button>
+						<input type="file" name="fileToUpload" id="profile_pic" ><br>
+						<input type="submit" name="" onclick="cascadeHide('upload_image','change_icon')">
+						<a>checking</a>
+					</div>
+					<script type="text/javascript">
+						function show(id){
+							document.getElementById(id).style.visibility = "visible";
+						}
+						function hide(id){
+							document.getElementById(id).style.visibility = "hidden";
+						}
+						function cascadeHide(id,id){
+							document.getElementById(id).style.display="hidden";
+							document.getElementById(id).style.display="hidden";
+						}
+					</script>
+			</form>
+		</div>
+	</div>
+	
+	<!-- tool-bar -->
+	<div id="tool-bar" style="width:80%;height:30px;background-color:#FF0800;position:center;margin: 0 auto 0 auto;">
+		<a href="/home" style="display:block;text-decoration:none !important;float:left;margin:2px 12% 2px 12%;">Home</a>
+		<a href="/about" style="display:block;text-decoration:none !important;float:left;margin:2px 12% 2px 12%;">About</a>
+		<a href="/activities" style="display:block;text-decoration:none !important;float:left;margin:2px 12% 2px 12%;">Activities</a>
+	</div>
+
+	<!-- Little space-->
+	<div style="width:100%;height:20px;background-color:#FFF8F6;position:center;margin: 0 auto 0 auto;">
+	</div>
+	{% block user_info %}
+		{{ user_info }}
+	{% endblock %}
+	<!-- Post content -->
+	<div id="outer_wrap" class="w3-container" style="margin: 10px auto 10px auto;width:60%;">
+		<div id = "background" class="w3-container"> 
+			<div style="margin: 0 auto;padding: 0;width: 720px;height: 80px;list-style-type: none;background-color: white;">
+			</div>
+				<div id="post_content" class="w3-container">
+					<!-- Multimedia content -->
+		            <a href="https://www.pexels.com/photo/mist-misty-fog-foggy-7919/"></a>
+		                <img src="https://pexels.imgix.net/photos/7919/pexels-photo.jpg?fit=crop&w=690&h=480" alt="" /> 
+			            <!-- Text content-->
+			            <div>
+			            	<a href="#" style="display:block;text-decoration:none !important;" 
+			            	onClick="window.open('http://www.ndtv.com/world-news/11-turkish-police-officers-killed-in-suicide-bombing-blamed-on-kurdish-rebels-1450764', '_blank')">
+			            	<h4>11 Turkish Police Officers Killed In Suicide Bombing Blamed On Kurdish Rebels</h4>
+			            	<p>Eleven Turkish police officers were killed and 78 people injured today in a suicide truck bombing by suspected Kurdish rebels</p>
+			            	<h5>NDTV.com</h5>
+			            	</a>
+			            </div>
+		    	</div> 
+	    </div>
+	    <!-- space b/w posts colors:FFF8F6,EFE6E3-->
+	    <div style="margin: 0 auto;padding: 0;width: 720px;height: 20px;list-style-type: none;background-color: #FFF8F6;">
+		</div>
+	</div>
+
+	<!-- Subsequent posts-->
+    <div id="repeated_content">
+    </div>
+
+</body>
+</html>    
+            <!--<li>
+			<a href="https://www.pexels.com/photo/landscape-nature-sunset-trees-479/">
+                <img src="https://pexels.imgix.net/photos/479/landscape-nature-sunset-trees.jpg?fit=crop&w=640&h=480" alt=""/>
+            </a>
+            <ul >
+			  <h2>With a Container</h2>
+			  <p>The w3-container class is one of the most important of the w3.CSS classes. It can provide correct margins, padding, alignments, and more to your HTML elements.</p>
+			
+            <li> 
+
+
+                <a href="https://www.pexels.com/photo/landscape-sun-trees-path-21008/">
+                    <img src="https://pexels.imgix.net/photos/21008/pexels-photo.jpg?fit=crop&w=640&h=480" alt="" />
+                </a>
+            </li>
+            <li>
+                <a href="https://www.pexels.com/photo/cold-snow-landscape-nature-1127/">
+                    <img src="https://pexels.imgix.net/photos/1127/cold-snow-landscape-nature.jpg?fit=crop&w=640&h=480" alt="" />
+                </a>
+            </li>
+            <li>
+                <a href="https://www.pexels.com/photo/coastline-aerial-view-sea-9148/">
+                    <img src="https://pexels.imgix.net/photos/9148/pexels-photo.jpeg?fit=crop&w=640&h=480" alt="" />
+                </a>
+            </li> -->
+            
+        

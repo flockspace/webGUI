@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+
+	<!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="assets/css/main.css" rel="stylesheet">
+	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+
+    <script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/modernizr.custom.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+    <style type="text/css">
+    	body {
+		    margin: 0;
+		    background-color: #FFF8F6;
+		    font-family: 'Liberation Sans', Arial, sans-serif;
+		}
+
+		h1 {
+		    text-align: center;
+		}
+
+		#post_content {
+		    margin:6 auto;
+		    padding: 10;
+		    width: 680px;
+		    height: 480px;
+		    align-content: right;
+		    list-style-type: none;
+		    background-color: white;
+		    object-position: center;
+		    background-position: center;
+		}
+
+		#background {
+		    margin: 0 auto;
+		    padding: 0;
+		    width: 720px; 
+		    height: 850px;
+		    list-style-type: none;
+		    background-color: white;
+		    border-style:solid;
+		    border-color:#EFE6E3; 
+		    border-width:2px
+		}
+    </style>
+    
+</head>
+<body data-spy="scroll" data-offset="0">
+	
+	<script type="text/javascript" src="static/js/scroll_jquery.js"></script>
+	<!-- top-bar wrapper-->
+	<div id="top-bar_wrap" style="width:100%;height:325px;background-color:#FFF8F6;position:center;margin: 0 auto 0 auto; ">
+		<!-- top-bar colorcode:FA2C00-->
+		<div style="width:100%;height:50px;background-color:#FF0800;position:center;margin: 0 auto 0 auto;">
+			<!-- settings-->
+			<div style="clear: both;">
+				<form id="logoutForm" method="post" action="http://127.0.0.1/logout" >{% csrf_token %}					<input type="submit" name="logout" value="Logout" style="width:60px;height:30px;background-color:#FA2C00;display: block;  float: right;">
+				</form>
+			</div>
+		</div>
+
+		<!-- Profile pics and information section -->
+		<div id="profile-pic" style="width:210px; height:210px; float:left;margin:2% 2% 2% 5%;background-color:white" >
+			<form id="profile-pic-form" method="POST" action="http://127.0.0.1/changeprofilepic" enctype="multipart/form-data">{% csrf_token %}
+				<img class='img-circle' src='media/{{ image_id }}' style="border-radius: 50%;background-size:cover;width:210px; height:210px;" onmouseleave="hide('imageHiddenDiv')" onmouseover="show('change_icon')"/>
+					<!-- tag to show change pic icon -->
+					<div id='imageHiddenDiv' style="height:10%;width:20%;position:absolute;bottom:57%;right:71%;padding:0px;background:transparent;border-radius:9px:visibility:hidden">
+						<img id='change_icon' src='static/img/change_pic_icon.png' style="height:30px;width:30px;position:absolute;bottom:57%;right:77%;margin:2% 2% 2% 2%;visibility:hidden" onclick="show('upload_image')" onmouseleave="hide('change_icon')" />
+					</div>
+					<!-- tag to enable upload form -->
+					<div id='upload_image' style="height:300px;width:400px;position:absolute;bottom:50%;right:50%;border:1px solid;padding:10px;background:#FFFFFF;border-radius:9px; visibility:hidden" >
+						<button id='close' onclick="cascadeHide('upload_image','change_icon')" style="right:5;top:5;float:right">x</button>
+						<input type="file" name="fileToUpload" id="profile_pic" ><br>
+						<input type="submit" name="" onclick="cascadeHide('upload_image','change_icon')">
+						<a>checking</a>
+					</div>
+					<script type="text/javascript">
+						function show(id){
+							document.getElementById(id).style.visibility = "visible";
+						}
+						function hide(id){
+							document.getElementById(id).style.visibility = "hidden";
+						}
+						function cascadeHide(id,id){
+							document.getElementById(id).style.display="hidden";
+							document.getElementById(id).style.display="hidden";
+						}
+					</script>
+			</form>
+		</div>
+	</div>
+	
+	<!-- tool-bar -->
+	<div id="tool-bar" style="width:80%;height:30px;background-color:#FF0800;position:center;margin: 0 auto 0 auto;">
+		<a href="/home" style="display:block;text-decoration:none !important;float:left;margin:0 10% 0 10%;">Home</a>
+		<a href="/about" style="display:block;text-decoration:none !important;float:left;margin:0 10% 0 10%;">About</a>
+		<a href="/Activities" style="display:block;text-decoration:none !important;float:left;margin:0 10% 0 10%;">Activities</a>
+	</div>
+
+	<!-- Little space-->
+	<div style="width:100%;height:20px;background-color:#FFF8F6;position:center;margin: 0 auto 0 auto;">
+	</div>
+	
+	<!-- About section-->
+	<div id="user_info" class="w3-container" style="height:400px;width:600px;position:absolute;bottom:1%;right:30%;padding:0px;background:#FFF8F6;border-radius:9px;display:inline;border:1px;border-color:black;border-style: solid;">
+		<p style="width:40%;float:left;color:#601616;left-margin:5%;">Name</p>
+		<p style="width:40%;float:left;color:#601616">{{ first_name }} {{last_name}} </p>
+		<p style="width:40%;float:left;color:#601616">Email ID</p>
+		<p style="width:40%;float:left;color:#601616">{{ email }}</p>
+		<p style="width:40%;float:left;color:#601616">Working as</p>
+		<p style="width:40%;float:left;color:#601616">{{ workingAs }}</p>
+		<p style="width:40%;float:left;color:#601616">Working at</p>
+		<p style="width:40%;float:left;color:#601616">{{ workingAt }}</p>
+		<p style="width:40%;float:left;color:#601616">Lives In</p>
+		<p style="width:40%;float:left;color:#601616">{{ livesIn }}</p>
+	</div>
+
+	<form method="POST" action="http://127.0.0.1/update_profile" > {% csrf_token %}
+		<div id="infoEditHidden" contenteditable="true" style="height:auto;width:600px;position:absolute;top-margin:5%;right:30%;padding:5px 5px 5px 5px;background:#FFF8F6;border-radius:9px;display:none;border:1px;border-style: solid;border-color:black;">
+			<p style="padding:1% 1% 1% 1%;width:22%;color:#601616">{{ first_name }} {{last_name}} </p>
+			<p style="padding:1% 1% 1% 1%;width:22%;color:#601616">Email ID</p><input type="text" name="email" style="width:75%;"><br>
+			<p style="padding:1% 1% 1% 1%;width:22%;color:#601616">Working as</p><input type="text" name="workingAs" style="width:75%;"><br>
+			<p style="padding:1% 1% 1% 1%;width:22%;color:#601616">Working at</p><input type="text" name="workingAt" style="width:75%;"><br>			
+			<p style="padding:1% 1% 1% 1%;width:22%;color:#601616">Lives in</p> <input type="text" name="livesIn" style="width:75%;"><br>
+			<p style="padding:1% 1% 1% 1%;width:22%;color:#601616">Lives in</p> <input type="text" name="livesIn" style="width:75%;"><br>
+			<p style="padding:1% 1% 1% 1%;width:22%;color:#601616">Lives in</p> <input type="text" name="livesIn" style="width:75%;"><br>
+			<p style="padding:1% 1% 1% 1%;width:22%;color:#601616">Lives in</p> <input type="text" name="livesIn" style="width:75%;"><br>
+			<p style="padding:1% 1% 1% 1%;width:22%;color:#601616">Lives in</p> <input type="text" name="livesIn" style="width:75%;"><br>
+			<input type="submit" name="Save" onclick="enableView()" style="position:absolute;margin-top:2%;right:63%;float:left;">
+			<button id="cancel" type="button" style="position:absolute;margin-top:2%;right:45%;float:left;" onclick="enableView()">Cancel</button>
+		</div>
+	</form>
+	<div id='infoEdit' style="height:10px;width:20px;padding:0px;background:transparent;border-radius:9px:visibility:visible">
+		<button id="edit" type="button" style="position:absolute;bottom:5%;right:60%;visibility:visible;float:left" onclick="enableEdit()">Edit</button>
+		<script type="text/javascript">
+			function enableEdit(){
+				document.getElementById('user_info').style.display='none';
+				document.getElementById('infoEditHidden').style.display='inline';
+				document.getElementById('edit').style.visibility='hidden';
+				document.getElementById('cancel').style.visibility='visible';
+
+			}
+			function enableView(){
+				document.getElementById('user_info').style.display='inline';
+				document.getElementById('infoEditHidden').style.display='none';
+				document.getElementById('edit').style.visibility='visible';
+				document.getElementById('cancel').style.visibility='hidden';
+			}
+		</script>
+	</div>>
+
+</body>
+</html>    
