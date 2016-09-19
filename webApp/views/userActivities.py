@@ -1,9 +1,8 @@
 '''
-Created on 09-Aug-2016
+Created on 17-Sep-2016
 
 @author: suhaheer
 '''
-
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 
@@ -24,39 +23,6 @@ failed_context = {'first_name':None,
                   'myself':None,
                   'livesIn':None
                 }
-
-def home(request):
-    if request.user.is_authenticated():
-        user = User.objects.get(username=request.user.username)
-        context=populate_user_context(request, request.user.username)
-        return render(request, "home_.html", context, "Content-type: text/HTML", 200, None)
-    else:
-        return HttpResponseRedirect('/welcome','User authentication failed. Login again')
-    
-def about(request):
-    if request.user.is_authenticated():
-        user = User.objects.get(username=request.user.username)
-        context = populate_user_context(request, user.username)
-        return render(request, "about.html", context, "Content-type: text/HTML", 200, None)
-    else:
-        return HttpResponseRedirect('/welcome','User authentication failed. Login again')
-    return HttpResponse(200)
-
-
-def view_profile(request):
-    if request.user.is_authenticated():
-        if request.method=='GET':
-            id=request.GET['id']
-            user = User.objects.get(pk=id)
-            context = populate_user_context(request, user.username)
-            return render(request, "generic_profile.html", context, "Content-type: text/HTML", 200, None)
-        else:
-            print "Wrong http request method."
-            return HttpResponseRedirect('/home','Wrong http request method.')
-    else:
-        print "User need to login"
-        return HttpResponseRedirect('/welcome','User need to login')
-    HttpResponse(200)
 
 '''A generic method, Always pass the username to generate context'''
 def populate_user_context(request,username):
@@ -79,3 +45,14 @@ def populate_user_context(request,username):
             return failed_context
     else:
         return failed_context
+
+
+def activities(request):
+    if request.user.is_authenticated():
+        user = User.objects.get(username=request.user.username)
+        context = populate_user_context(request, user.username)
+        return render(request, "activities.html", context, "Content-type: text/HTML", 200, None)
+    else:
+        return HttpResponseRedirect('/welcome','User authentication failed. Login again')
+    return HttpResponse(200)
+    

@@ -82,13 +82,14 @@ def register(request):
         if validate_registration_attributes(request.POST):
             user_uuid = uuid.uuid4()
             try:
-                user = User.objects.create(uuid=user_uuid,
+                user = User.objects.create(user_id=user_uuid,
                                         last_login=str(datetime.datetime.now()),
                                         username= request.POST['username'],
                                         first_name= request.POST['first_name'],
                                         last_name= request.POST['last_name'],
                                         email= request.POST['email'],
                                         profile_pic = "blank_image.png",
+                                        banner_pic = "blank_image.png",
                                         password = '',
                                         )
                 user.set_password(request.POST['passwd_1'])

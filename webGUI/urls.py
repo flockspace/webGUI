@@ -23,21 +23,28 @@ from django.conf.urls.static import static
 from django.conf.urls import url
 from django.contrib import admin
 
-from webApp.views import profileView, welcomeView, userAuth, changeProfilePic
-from webApp.views import userRegister
+from webApp.views import profileView, welcomeView, userAuth , userActivities
+from webApp.views import profileUpdates, contentManager, userRegister
 
 urlpatterns = [
     url(r'^$', welcomeView.welcome, name='welcome'),
     url(r'^welcome', welcomeView.welcome, name ='welcome'),
     url(r'^login', userAuth.profileLogin, name='login'),
     url(r'^logout', userAuth.profileLogout, name='logout'),
+    
     url(r'^register', userRegister.register, name='register'),
+    
     url(r'^home', profileView.home, name='home'),
-    url(r'^changeprofilepic', changeProfilePic.update_pro_pic, name='changeprofilepic'),
     url(r'^about', profileView.about, name='about'),
-    url(r'^activities', profileView.activities, name='about'),
     url(r'^view', profileView.view_profile, name='about'),
-    url(r'^update_profile', profileView.update_profile, name='update_profile'),
+    
+    url(r'^change_profile_pic', profileUpdates.update_profile_pic, name='change_profile_pic'),
+    url(r'^change_banner_pic', profileUpdates.update_banner_pic, name='change_banner_pic'),
+    url(r'^update_profile', profileUpdates.update_profile, name='update_profile'),
+    
+    url(r'^activities', userActivities.activities, name='activities'),
+    
+    url(r'^upload_content', contentManager.contentManager, name='upload_content'),
 ]
 if settings.DEBUG==True:
     urlpatterns +=static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -87,7 +87,7 @@
 		    margin:6 auto;
 		    padding: 10;
 		    width: 680px;
-		    height: 480px;
+		    height: 400px;
 		    align-content: right;
 		    list-style-type: none;
 		    background-color: white;
@@ -99,7 +99,7 @@
 		    margin: 0 auto;
 		    padding: 0;
 		    width: 720px; 
-		    height: 850px;
+		    height: 600px;
 		    list-style-type: none;
 		    background-color: white;
 		    border-style:solid;
@@ -112,73 +112,72 @@
 <body>
 	
 	<script type="text/javascript" src="static/js/scroll_jquery.js"></script>
-	<!-- top-bar wrapper-->
-	<div id="top-bar_wrap" style="width:100%;height:325px;background-color:#FFF8F6;position:center;margin: 0 auto 0 auto; ">
-		<!-- top-bar colorcode:FA2C00-->
-		<div style="width:100%;height:50px;background-color:#FF0800;position:center;margin: 0 auto 0 auto;">
-			<!-- settings-->
-			<div class="col l3 m12 s12 icon">
-					<a href="http://127.0.0.1/logout">
-                    <i class="fa fa-sign-out" aria-hidden="true" style="color:white;font-size:48px;float:right;margin:0 2% 0 2%;">
-                    </i> <!-- logout -->
-                    </a>
-            </div>
-		</div>
-
-		<!-- Profile pics and information section -->
-		<div id="profile-pic" style="width:210px; height:210px; float:left;margin:2% 2% 2% 5%;background-color:white" >
-			<form id="profile-pic-form" method="POST" action="http://127.0.0.1/changeprofilepic" enctype="multipart/form-data">{% csrf_token %}
-				<img class='img-circle' src='media/{{ image_id }}' style="border-radius: 50%;background-size:cover;width:210px; height:210px;" onmouseleave="hide('imageHiddenDiv')" onmouseover="show('change_icon')"/>
-					<!-- tag to show change pic icon -->
-					<div id='imageHiddenDiv' style="height:10%;width:20%;position:absolute;bottom:57%;right:71%;padding:0px;background:transparent;border-radius:9px:visibility:hidden">
-						<img id='change_icon' src='static/welcome-page/img/change_pic_icon.png' style="height:30px;width:30px;position:absolute;bottom:57%;right:77%;margin:2% 2% 2% 2%;visibility:hidden" onclick="show('upload_image')" onmouseleave="hide('change_icon')" />
-					</div>
-					<!-- tag to enable upload form -->
-					<div id='upload_image' style="height:250px;width:250px;position:absolute;top-margin:100%;right:80%;border:1px solid;padding:10px;background:#FFFFFF;border-radius:9px; visibility:hidden" 
-						onmousemove="cascadeHide('upload_image','change_icon')">
-						<button id='close' onclick="cascadeHide('upload_image','change_icon')" style="right:5;top:5;float:right">X</button>
-						<input type="file" name="fileToUpload" id="profile_pic" ><br>
-						<input type="submit" name="" onclick="cascadeHide('upload_image','change_icon')">
-						<a>checking</a>
-					</div>
-					<script type="text/javascript">
-						function show(id){
-							document.getElementById(id).style.visibility = "visible";
-						}
-						function hide(id){
-							document.getElementById(id).style.visibility = "hidden";
-						}
-						function cascadeHide(id,id){
-							document.getElementById(id).style.display="hidden";
-							document.getElementById(id).style.display="hidden";
-						}
-					</script>
-			</form>
-		</div>
+	<!-- top-bar wrapper -->
+	<div style="width:100%;height:50px;background-color:#FF0800;position:center;margin: 0 auto 0 auto;">
+        <!-- settings-->
+        <div class="col l3 m12 s12 icon">
+            <a href="http://127.0.0.1/home" title="Home">
+            <i class="fa fa-home" aria-hidden="true" style="color:white;font-size:48px;float:left;margin:0 2% 0 2%;"></i>
+            <!-- home -->
+            </a>
+        </div>
+		<div class="col l3 m12 s12 icon">
+			<a href="http://127.0.0.1/logout">
+            <i class="fa fa-sign-out" aria-hidden="true" style="color:white;font-size:48px;float:right;margin:0 2% 0 2%;">
+            </i> <!-- logout -->
+            </a>
+        </div>
 	</div>
 	
+	<!-- Banner picture-->
+	<div id="banner" style="width:95%; height:300px;margin:0.5% auto 0.5% auto;background-color:white" >
+    	<div class="feature-img">
+    		<img src="http://127.0.0.1/media/{{ banner_pic }}" class="responsive-img" alt="" style="width:100%;height:300px;">
+    	</div>
+	</div><!--End of banner tag-->
+
+	<!-- Profile pics and information section -->
+	<div id="profile-pic" style="width:210px; height:400px; float:left;margin:2% 2% 2% 2%;background-color:#FFF8F6;position:absolute;right:78.5%;">
+		<img class='img-circle' src='http://127.0.0.1/media/{{ profile_pic }}' 
+			style="border-radius: 50%;background-size:cover;width:210px; height:210px;" >
+			<div>
+				<div class="col l12 m12 s12 sort-info sidebar-item">
+					<div class="row">
+						<div class="col m12 s12 l20 info wow fadeIn a1" data-wow-delay="0.1s" >
+							<div class="section-item-details" >
+			                    <div class="info-view">
+			                        <p>{{ myself }}</p>
+			                    </div>
+			                </div>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+	</div><!--End of profile pic div tag-->
+    
 	<!-- tool-bar -->
-	<div id="tool-bar" style="width:80%;height:30px;background-color:#FF0800;position:center;margin: 0 auto 0 auto;">
-		<a href="/home" style="display:block;text-decoration:none !important;float:left;margin:2px 12% 2px 12%;">Home</a>
-		<a href="/about" style="display:block;text-decoration:none !important;float:left;margin:2px 12% 2px 12%;">About</a>
-		<a href="/activities" style="display:block;text-decoration:none !important;float:left;margin:2px 12% 2px 12%;">Activities</a>
+	<div id="tool-bar" style="width:50%;height:10px;position:relative;margin: 2px auto 2px auto;">
+		<a href="/home" style="display:block;text-decoration:none !important;float:left;margin:2px 12% 2px 12%;
+								color:red !important">Home</a>
+		<a href="/about" style="display:block;text-decoration:none !important;float:left;margin:2px 12% 2px 12%;
+								color:red !important">About</a>
+		<a href="/activities" style="display:block;text-decoration:none !important;float:left;margin:2px 12% 2px 12%;
+								color:red !important">Activities</a>
 	</div>
 
 	<!-- Little space-->
-	<div style="width:100%;height:20px;background-color:#FFF8F6;position:center;margin: 0 auto 0 auto;">
+	<div style="width:100%;height:10px;background-color:#FFF8F6;position:center;margin: 0 auto 0 auto;">
 	</div>
-	{% block user_info %}
-		{{ user_info }}
-	{% endblock %}
+	
 	<!-- Post content -->
 	<div id="outer_wrap" class="w3-container" style="margin: 10px auto 10px auto;width:60%;">
 		<div id = "background" class="w3-container"> 
-			<div style="margin: 0 auto;padding: 0;width: 720px;height: 80px;list-style-type: none;background-color: white;">
+			<div style="margin: 0 auto;padding: 0;width:100%;height:15%;list-style-type: none;background-color: white;">
 			</div>
 				<div id="post_content" class="w3-container">
 					<!-- Multimedia content -->
 		            <a href="https://www.pexels.com/photo/mist-misty-fog-foggy-7919/"></a>
-		                <img src="https://pexels.imgix.net/photos/7919/pexels-photo.jpg?fit=crop&w=690&h=480" alt="" /> 
+		                <img src="https://pexels.imgix.net/photos/7919/pexels-photo.jpg" style="height:350px;width:690px;" alt="" /> 
 			            <!-- Text content-->
 			            <div>
 			            	<a href="#" style="display:block;text-decoration:none !important;" 
@@ -200,31 +199,4 @@
     </div>
 
 </body>
-</html>    
-            <!--<li>
-			<a href="https://www.pexels.com/photo/landscape-nature-sunset-trees-479/">
-                <img src="https://pexels.imgix.net/photos/479/landscape-nature-sunset-trees.jpg?fit=crop&w=640&h=480" alt=""/>
-            </a>
-            <ul >
-			  <h2>With a Container</h2>
-			  <p>The w3-container class is one of the most important of the w3.CSS classes. It can provide correct margins, padding, alignments, and more to your HTML elements.</p>
-			
-            <li> 
-
-
-                <a href="https://www.pexels.com/photo/landscape-sun-trees-path-21008/">
-                    <img src="https://pexels.imgix.net/photos/21008/pexels-photo.jpg?fit=crop&w=640&h=480" alt="" />
-                </a>
-            </li>
-            <li>
-                <a href="https://www.pexels.com/photo/cold-snow-landscape-nature-1127/">
-                    <img src="https://pexels.imgix.net/photos/1127/cold-snow-landscape-nature.jpg?fit=crop&w=640&h=480" alt="" />
-                </a>
-            </li>
-            <li>
-                <a href="https://www.pexels.com/photo/coastline-aerial-view-sea-9148/">
-                    <img src="https://pexels.imgix.net/photos/9148/pexels-photo.jpeg?fit=crop&w=640&h=480" alt="" />
-                </a>
-            </li> -->
-            
-        
+</html>
