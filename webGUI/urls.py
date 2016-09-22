@@ -43,6 +43,7 @@ urlpatterns = [
     url(r'^update_profile', profileUpdates.update_profile, name='update_profile'),
     
     url(r'^activities', userActivities.activities, name='activities'),
+    url(r'^content_deletion', userActivities.generic_content_deletion, name='content_deletion'),
     
     url(r'^upload_content', contentManager.contentManager, name='upload_content'),
 ]

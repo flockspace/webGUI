@@ -42,7 +42,7 @@ def about(request):
         return HttpResponseRedirect('/welcome','User authentication failed. Login again')
     return HttpResponse(200)
 
-
+#given any USER ID, show her profile information
 def view_profile(request):
     if request.user.is_authenticated():
         if request.method=='GET':

@@ -300,6 +300,39 @@
           		}
         		});
 
+        		$("#portfolioContent").on('change', function() {
+          		//Get count of selected files
+          		var countFiles = $(this)[0].files.length;
+          		var filePath = $(this)[0].value;
+          		var extn = filePath.substring(filePath.lastIndexOf('.') + 1).toLowerCase();
+          		
+          		if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
+          			var image_preview = $("#portfolio-album-preview");
+          			$(image_preview).html('');
+          			image_preview.empty();
+            		if (typeof(FileReader) != "undefined") {
+              			//loop for each file selected for uploaded.
+              			for (var i = 0; i < countFiles; i++) {
+                			var reader = new FileReader();
+                			reader.onload = function(e) {
+                  			$("<img />", {
+	                    		"src": e.target.result,
+	                   		 	"style": "float:left;width:80px;height:80px;position:relative;top-margin:1%;padding:1px;"
+	                  			}).appendTo(image_preview);
+                			}
+                			
+                			image_preview.show();
+                			reader.readAsDataURL($(this)[0].files[i]);
+              			}
+            		} else {
+              			alert("This browser does not support FileReader.");
+            		}	
+          		} else{
+          			alert("Upload only png,gif,jpeg,jpg files");
+          			$('#portfolioContent').val('');
+          		}
+        		});
+
       		});
 
         	$(document).ready(function(){
@@ -381,9 +414,31 @@
 		            </div>
 		            <div class="custom-content col s12 m12 l10 wow fadeIn a1" data-wow-delay="0.1s">
 		                <h2>Image</h2>
+		                <div class="wow fadeIn a2" data-wow-delay="0.2s" style="display:inline">
+		                	<form id="content_images" method="POST" action="http://127.0.0.1/content_deletion">
+				            {% csrf_token %}
+			                	<button class="btn waves-effect waves-teal" 
+			                		style="background-color:red;margin:0 70% 5px 30%;"
+			                		onclick="this.form.submit();" name="button" value="image">Delete
+			                	</button>
+				            </form>
+				        </div>
 		                <div id="imageContainer">
-		                	
+		                	{% for img in Content_images %}
+		                	<div style="float:left;width:200px;
+			                			height:200px;position:relative;top-margin:1%;padding:1px;">
+			                	<a href="http://127.0.0.1/media/{{ img.location }}">
+				                	<img src="http://127.0.0.1/media/{{ img.location }}" style="float:left;
+				                	width:150px;height:150px;position:relative;top-margin:1%;padding:1px;" />
+			                	</a>
+			                	<input type="checkbox" id="{{ img.content_id }}" form="content_images" 
+			                		name="imgContent_deletion" value="{{ img.content_id }}" 
+			                			style="float:left;width:10px;height:10px;">
+		                			<label for="{{ img.content_id }}" style="float:left;">Delete?</label>
+		                	</div>
+		                	{% endfor %}
 		                </div>
+
 		                <div class="wow fadeIn a2 info-edit" data-wow-delay="0.2s" style="display:inline">
 		                	<a class="btn-floating waves-effect waves-light red" style="margin:0 65% 0 35%;"
 		                		onclick="enableUpload('upload-images','image-preview','imageContent','img_description')">
@@ -403,6 +458,35 @@
 		            </div>
 		            <div class="custom-content col s12 m12 l10 wow fadeIn a1" data-wow-delay="0.1s" >
 		                <h2>Audio </h2>
+		                <div class="wow fadeIn a2" data-wow-delay="0.2s" style="display:inline">
+		                	<form id="content_audio" method="POST" action="http://127.0.0.1/content_deletion">
+				            {% csrf_token %}
+			                	<button class="btn waves-effect waves-teal" 
+			                		style="background-color:red;margin:0 70% 15px 30%;"
+			                		onclick="this.form.submit();" name="button" value="audio">Delete
+			                	</button>
+				            </form>
+				        </div>
+		                <div id="audioContainer">
+		                	{% for audio in Content_audios %}
+		                	<div style="float:left;width:600px;
+			                			height:60px;position:relative;top-margin:1%;padding:1px;">
+			                	<a href="http://127.0.0.1/media/{{ audio.location }}">
+			                		<audio src="http://127.0.0.1/media/{{ audio.location }}" 
+			                			style="float:left;width:500px;height:27px;position:relative;
+			                					top-margin:1%;padding:1px;"
+			                			controls>
+									</audio>
+			                	</a>
+			                	<input type="checkbox" id="{{ audio.content_id }}" form="content_audio" 
+			                		name="audioContent_deletion" value="{{ audio.content_id }}" 
+			                			style="float:left;width:5px;height:5px;position:absolute;
+			                					top-margin:1%;padding:1px;">
+		                			<label for="{{ audio.content_id }}" style="float:left;">Delete?</label>
+	                		</div>
+	                		
+		                	{% endfor%}
+		                </div>
 		                <div class="wow fadeIn a2 info-edit" data-wow-delay="0.2s" style="display:inline">
 		                	<a class="btn-floating waves-effect waves-light red" style="margin:0 65% 0 35%;"
 		                		onclick="enableUpload('upload-audio','audio-preview','audioContent','audio_description')">
@@ -413,7 +497,7 @@
 		        </div>
 
 		        <!-- ========================================
-		         Video section
+		         Video section  poster="http://127.0.0.1/media/video-background.jpg"
 		        ==========================================-->
 
 		        <div class="section-wrapper z-depth-1">
@@ -422,6 +506,33 @@
 		            </div>
 		            <div class="custom-content col s12 m12 l10 wow fadeIn a1" data-wow-delay="0.1s" >
 		                <h2>Video </h2>
+		                <div class="wow fadeIn a2" data-wow-delay="0.2s" style="display:inline">
+		                	<form id="content_video" method="POST" action="http://127.0.0.1/content_deletion">
+				            {% csrf_token %}
+			                	<button class="btn waves-effect waves-teal" 
+			                		style="background-color:red;margin:0 70% 15px 30%;"
+			                		onclick="this.form.submit();" name="button" value="video">Delete
+			                	</button>
+				            </form>
+				        </div>
+		                <div id="videoContainer">
+		                	{% for video in Content_videos %}
+		                	<div style="float:left;width:200px;
+			                			height:200px;position:relative;top-margin:1%;padding:1px;">
+		                	<a href="http://127.0.0.1/media/{{ video.location }}">
+		                		<video  
+		                			src="http://127.0.0.1/media/{{ video.location }}" 
+		                			style="float:left;width:150px;height:150px;position:relative;
+		                					top-margin:1px;padding:1px;">
+								</video>
+		                	</a>
+		                	<input type="checkbox" id="{{ video.content_id }}" form="content_video" 
+			                		name="videoContent_deletion" value="{{ video.content_id }}" 
+			                			style="float:left;width:5px;height:5px;">
+		                			<label for="{{ video.content_id }}" style="float:left;">Delete?</label>
+		                	</div>
+		                	{% endfor%}
+		                </div>
 		                <div class="wow fadeIn a2 info-edit" data-wow-delay="0.2s" style="display:inline">
 		                	<a class="btn-floating waves-effect waves-light red" style="margin:0 65% 0 35%;"
 		                		onclick="enableUpload('upload-video','video-preview','videoContent','video_description')">
@@ -528,7 +639,24 @@
 						style="float:left;margin:0 auto 0 10px;"> 
 		</div>
 
-		<div id='upload-portfolio-album' style="height:500px;width:650px;position:fixed;top:27.5%;right:25%;border:0px solid;padding:10px;background-color:#F0F0F3;border-radius:9px;display:none;z-index:1">
+		<div id='upload-portfolio-album' style="height:550px;width:650px;position:fixed;top:18%;right:27.5%;border:0px solid;padding:10px;background-color:#F0F0F3;border-radius:9px;display:none;z-index:1">
+				<a href="javascript:void(0);" onclick="finishUpload()" 
+					style="right:5;top:5;float:right;color:red;">X</a>
+				<p>ALBUM UPLOAD</p>
+				<div id="portfolio-album-preview" style="height:400px;width:auto;border:0px solid;padding:10px;background-color:#FFFFFF;border-radius:2px;">
+				</div>
+				<div style="height:50px;width:auto;border:0px solid;padding:5px;background-color:#FFF8F6;border-radius:2px;">
+					<textarea id="album_description" rows="30" cols="80" name="album_description" form="upload_content"
+						style="resize:none;border:0px solid red;font-size:14px"  
+						placeholder="Write in few words about Album">
+					</textarea>
+				</div>
+				<input id="portfolioContent" type="file" name="portfolioContent" form="upload_content" multiple 
+						style="float:left;margin:0 10px 0 auto;" />
+				<input type="submit" name="portfolio-album" onclick="finishUpload()" form="upload_content"
+						style="float:left;margin:0 auto 0 10px;" /> 
+		</div>
+		<!--<div id='upload-portfolio-album' style="height:500px;width:650px;position:fixed;top:27.5%;right:25%;border:0px solid;padding:10px;background-color:#F0F0F3;border-radius:9px;display:none;z-index:1">
 				<a href="javascript:void(0);" onclick="dontDisplay('upload-portfolio-album')" 
 					style="right:5;top:5;float:right;color:red;">X</a>
 				<div id="portfolio-album-preview" style="height:210px;width:auto;border:0px solid;padding:10px;background-color:#FFFFFF;border-radius:2px;">
@@ -542,7 +670,7 @@
 						style="float:left;margin:0 10px 0 auto;">
 				<input type="submit" name="portfolio-album" onclick="dontDisplay('upload-portfolio-album')" form="upload_content" 
 						style="float:left;margin:0 auto 0 10px;">
-		</div>
+		</div> -->
 
 		<form id="upload_content" method="POST" action="http://127.0.0.1/upload_content" 
 				enctype="multipart/form-data">{% csrf_token %}	
