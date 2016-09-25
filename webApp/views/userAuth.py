@@ -18,6 +18,8 @@ from django.contrib.auth import authenticate, login, logout
 #from django.contrib.auth import get_user_model
 #User = get_user_model()
 from webApp.models import user_model as User
+from webApp.messageHandler import AMQHandler as AMQ
+
 #from django.template.context_processors import request
 #from webApp.forms import UserLoginForm, UserCreateForm
 #from django.contrib.auth.forms import UserCreationForm
@@ -40,6 +42,10 @@ def profileLogin(request):
         if userObj.check_password(password):
             if userObj.is_active and userObj.is_authenticated():
                 login(request, userObj)
+                '''Although queue and default subscription worked during 
+                registration, doing again doesn't affect.
+                '''
+                amqp = AMQ(userObj.user_id)
                 return HttpResponseRedirect('/home','Successfull login. Redirecting to home page.')
             else:
                 print "User account is not active."

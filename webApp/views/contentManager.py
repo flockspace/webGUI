@@ -15,11 +15,13 @@ from django.contrib.auth import authenticate, login, logout
 from webApp.models import user_model as User
 from webApp.models import album as album_table
 from webApp.models import contentSystems as content_table
+from webApp.messageHandler import AMQHandler as AMQ
 
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 
 import imghdr
+
 
 ''' Methods and class definitions
 '''
@@ -51,11 +53,17 @@ def upload_images(request):
                 content_entry = content_table.objects.create(content_id=uuid.uuid4(),
                                                          user_id=str(request.user.pk),
                                                          type="image",
+                                                         category = "entertainment",
                                                          description=request.POST['img_description'],
                                                          location=''
                                                          )
                 content_entry.location=request.FILES['imageContent']
                 content_entry.save()
+                
+                "Publish content to all recipient "
+                content =populate_AMQ_message(user,content_entry)
+                amqp= AMQ(user.user_id)
+                amqp.publish(content)
             else:
                 context=populate_user_context(request, request.user.username)
                 return redirect("/activities", context, "text/html", 200)
@@ -76,11 +84,17 @@ def upload_audio(request):
                 content_entry = content_table.objects.create(content_id=uuid.uuid4(),
                                                          user_id=str(request.user.pk),
                                                          type="audio",
+                                                         category = "entertainment",
                                                          description=request.POST['audio_description'],
                                                          location=''
                                                          )
                 content_entry.location=request.FILES['audioContent']
                 content_entry.save()
+                
+                "Publish content to all recipient "
+                content =populate_AMQ_message(user,content_entry)
+                amqp= AMQ(user.user_id)
+                amqp.publish(content)
             else:
                 context=populate_user_context(request, request.user.username)
                 return redirect("/activities", context, "text/html", 200)
@@ -101,11 +115,17 @@ def upload_video(request):
                 content_entry = content_table.objects.create(content_id=uuid.uuid4(),
                                                          user_id=str(request.user.pk),
                                                          type="video",
+                                                         category = "entertainment", 
                                                          description=request.POST['video_description'],
                                                          location=''
                                                          )
                 content_entry.location=request.FILES['videoContent']
                 content_entry.save()
+                
+                "Publish content to all recipient "
+                content =populate_AMQ_message(user,content_entry)
+                amqp= AMQ(user.user_id)
+                amqp.publish(content)
             else:
                 context=populate_user_context(request, request.user.username)
                 return redirect("/activities", context, "text/html", 200)
@@ -192,6 +212,26 @@ def populate_user_context(request,username):
             return failed_context
     else:
         return failed_context
+
+def populate_AMQ_message(user,content_entry):
+    msg = { "content_id":str(content_entry.content_id or None),
+            "content_type":str(content_entry.type or None),
+            "content_location":str(content_entry.location or None),
+            "content_category":str(content_entry.category or None),
+            "content_description":str(content_entry.description or None),
             
+            "user_id":str(user.user_id or None),
+            "user_fname":str(user.first_name or None),
+            "user_lname":str(user.last_name or None),
+            "user_email":str(user.email or None),
+            "user_workEmail":str(user.workEmail or None),
+            "user_mobilePh":str(user.mobilePh or None),
+            "user_workPh":str(user.workPh or None),
+            "user_profile_pic":str(user.profile_pic or None),
+            "user_banner_pic":str(user.banner_pic or None),
+            "user_myself":str(user.myself or None),
+            "user_livesIn":str(user.address or None)
+           }
+    return msg  
             
             

@@ -21,13 +21,13 @@ from django.template import Template, Context
 #from django.contrib.auth import get_user_model
 #User = get_user_model()
 from webApp.models import user_model as User
+from webApp.messageHandler import AMQHandler as AMQ
 #from django.template.context_processors import request
 #from webApp.forms import UserLoginForm, UserCreateForm
 #from django.contrib.auth.forms import UserCreationForm
 
 from django.views.decorators.csrf import csrf_exempt
-from __builtin__ import True
-#from aetypes import template
+
 
 exception=''
 
@@ -94,7 +94,13 @@ def register(request):
                                         )
                 user.set_password(request.POST['passwd_1'])
                 user.save()
-                #Registration was successful. Logging in the user.
+                
+                '''Create a new queue and subscribe the user to the default 
+                topic 'entertainment'
+                '''
+                amqp = AMQ(user.user_id)
+                print "Registration for new user:"+user.username+" userID:"\
+                    +user.user_id+" is successful. Logging in the user"
                 login(request,user)
                 return HttpResponseRedirect('/home',"Successfully registered")
             except Exception as err:

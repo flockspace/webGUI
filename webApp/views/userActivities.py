@@ -10,6 +10,7 @@ from django.template.context_processors import request
 from django.http.response import HttpResponseBadRequest, HttpResponseRedirect
 
 from webApp.models import user_model as User
+from webApp.messageHandler import AMQHandler as AMQ
 from webApp.models import contentSystems as Contents
 # Create your views here.
 
@@ -35,10 +36,9 @@ def populate_audio_files(request, username):
         except Exception as err:
             print "Exception occurred while accessing DB with " \
                     "message %",err
-            return failed_context
-        pass
+            return None
     else:
-        return failed_context
+        return None
     
 def populate_video_files(request, username):
     if request.user.is_authenticated():
@@ -49,10 +49,9 @@ def populate_video_files(request, username):
         except Exception as err:
             print "Exception occurred while accessing DB with " \
                     "message %",err
-            return failed_context
-        pass
+            return None
     else:
-        return failed_context
+        return None
     
 def populate_image_files(request, username):
     if request.user.is_authenticated():
@@ -63,10 +62,9 @@ def populate_image_files(request, username):
         except Exception as err:
             print "Exception occurred while accessing DB with " \
                     "message %",err
-            return failed_context
-        pass
+            return None
     else:
-        return failed_context
+        return None
     
 def populate_user_context(request,username):
     if request.user.is_authenticated():
@@ -82,7 +80,7 @@ def populate_user_context(request,username):
                      'banner_pic':(user.banner_pic or None),
                      'myself':(user.myself or None),
                      'livesIn':(user.address or None)
-                     }
+                }
             audioFiles = populate_audio_files(request, username)
             videoFiles = populate_video_files(request, username)
             imageFiles = populate_image_files(request, username)
