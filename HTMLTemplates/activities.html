@@ -425,11 +425,11 @@
 				        </div>
 		                <div id="imageContainer">
 		                	{% for img in Content_images %}
-		                	<div style="float:left;width:200px;
+		                	<div style="float:left;width:240px;
 			                			height:200px;position:relative;top-margin:1%;padding:1px;">
 			                	<a href="http://127.0.0.1/media/{{ img.location }}">
 				                	<img src="http://127.0.0.1/media/{{ img.location }}" style="float:left;
-				                	width:150px;height:150px;position:relative;top-margin:1%;padding:1px;" />
+				                	width:220px;height:150px;position:relative;top-margin:1%;padding:1px;" />
 			                	</a>
 			                	<input type="checkbox" id="{{ img.content_id }}" form="content_images" 
 			                		name="imgContent_deletion" value="{{ img.content_id }}" 
