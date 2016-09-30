@@ -23,7 +23,8 @@ from django.conf.urls.static import static
 from django.conf.urls import url
 from django.contrib import admin
 
-from webApp.views import profileView, welcomeView, userAuth , userActivities
+from webApp.views import profileView, welcomeView, userAuth , userActivities,\
+    feedManager
 from webApp.views import profileUpdates, contentManager, userRegister
 
 urlpatterns = [
@@ -46,6 +47,7 @@ urlpatterns = [
     url(r'^content_deletion', userActivities.generic_content_deletion, name='content_deletion'),
     
     url(r'^upload_content', contentManager.contentManager, name='upload_content'),
+    url(r'^fetch_post_content', feedManager.fetch_post_content,name='fetch_post_content')
 ]
 if settings.DEBUG==True:
     urlpatterns +=static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

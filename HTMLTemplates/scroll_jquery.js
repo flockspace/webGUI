@@ -141,43 +141,65 @@ u'url': u'http://timesofindia.indiatimes.com/india/Kashmir-unrest-Rajnath-to-lea
 u'image': u'http://timesofindia.indiatimes.com/photo/53908150.cms', u'type': u'article'}
 */
 // Script
-var threshold=0;
+//var threshold=0;
 $(document).ready(function() {
     $(document).endlessScroll({
         inflowPixels: 300,
         callback: function() {
-              res={ "site_name": "The Times of India", 
+              /*res={ "site_name": "The Times of India", 
                     "description": "", 
                     "title": "US Secretary of State John Kerry stuck in Delhi traffic, thanks to rain - Times of India", 
                     "url": "http://timesofindia.indiatimes.com/india/John-Kerry-stuck-in-Delhi-traffic-thanks-to-rain/articleshow/53915256.cms", 
                     "image": "http://timesofindia.indiatimes.com/photo/53915257.cms", 
                     "type": "article"
-                  }
-              
-             if(threshold < 100000000){
-                //var $img = $('#images li:nth-last-child(2)').clone();
-                var loadable_content="<div id='post-content' class='w3-container'>\
-                                          <!-- Multimedia content -->\
-                                          <p>Testing the technique</p>\
-                                          <!-- Text content -->\
-                                          <div>\
-                                              <a href='#' style='display:block;text-decoration:none !important;'\
-                                                  onClick=\"window.open('"+res['url']+"', '_blank')\">\
-                                                  <img src='"+res['image']+"' alt='' />\
-                                                  <h4>"+res['title']+"</h4>\
-                                                  <p>"+res['description']+"</p>\
-                                                  <h5>"+res['site_name']+"</h5>\
-                                              </a>\
-                                          </div>\
-                                          <div id='post-comments'>\
-                                          <!-- post comments section-->\
-                                          </div>\
-                                      </div>"
-                //alert(loadable_content)
-                $('#post-background').html(loadable_content)
-                var $img = $('#outer_wrap').clone();
-                $('#repeated_content').append($img);
-                threshold ++ ;}
+                  } */
+
+              //var $img = $('#images li:nth-last-child(2)').clone();
+             /* var loadable_content="<!-- Multimedia content -->\
+                                        <p>Testing the technique</p>\
+                                        <!-- Text content -->\
+                                        <div>\
+                                            <a href='#' style='display:block;text-decoration:none !important;'\
+                                                onClick=\"window.open('"+res['url']+"', '_blank')\">\
+                                                <img src='"+res['image']+"' alt='' />\
+                                                <h4>"+res['title']+"</h4>\
+                                                <p>"+res['description']+"</p>\
+                                                <h5>"+res['site_name']+"</h5>\
+                                            </a>\
+                                        </div>\
+                                        <div id='post-comments'>\
+                                        <!-- post comments section-->\
+                                        </div>"
+              //alert(loadable_content) */
+
+              $.ajax({
+                  url:'http://127.0.0.1/fetch_post_content',
+                  type:'GET',
+                  //dataType:'JSON', Don't use dataType:JSON
+                  data:{'csrfmiddlewaretoken': '{{csrf_token}}'},
+                }).success(function(successObj){
+                    console.log("At success callback function")
+                    console.log(successObj);
+                    response = successObj['posts']
+                    console.log(response)
+                    obj = JSON.parse(response[0])
+                    console.log(typeof obj)
+                    console.log(obj["content_id"])
+                  
+                }).fail(function(failObj){
+                    console.log("At failure callback function")
+                    console.log(failObj);
+                });
+
+
+
+
+
+
+              $('#repeated_content').html(loadable_content)
+              var $img = $('#background').clone();
+              $('#repeated_content').append($img);
+              threshold ++ ;}
         }
     });
 });

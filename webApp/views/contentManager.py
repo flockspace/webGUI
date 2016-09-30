@@ -64,6 +64,7 @@ def upload_images(request):
                 content =populate_AMQ_message(user,content_entry)
                 amqp= AMQ(user.user_id)
                 amqp.publish(content)
+                
             else:
                 context=populate_user_context(request, request.user.username)
                 return redirect("/activities", context, "text/html", 200)
@@ -76,6 +77,7 @@ def upload_images(request):
     return HttpResponse(200)
     
 def upload_audio(request):
+    
     if request.user.is_authenticated():
         if request.method=='POST' and request.FILES:
             user = User.objects.get(username=request.user.username)
@@ -90,11 +92,11 @@ def upload_audio(request):
                                                          )
                 content_entry.location=request.FILES['audioContent']
                 content_entry.save()
-                
                 "Publish content to all recipient "
                 content =populate_AMQ_message(user,content_entry)
                 amqp= AMQ(user.user_id)
                 amqp.publish(content)
+                
             else:
                 context=populate_user_context(request, request.user.username)
                 return redirect("/activities", context, "text/html", 200)
@@ -126,6 +128,7 @@ def upload_video(request):
                 content =populate_AMQ_message(user,content_entry)
                 amqp= AMQ(user.user_id)
                 amqp.publish(content)
+                
             else:
                 context=populate_user_context(request, request.user.username)
                 return redirect("/activities", context, "text/html", 200)

@@ -83,35 +83,22 @@
 		    text-align: center;
 		}
 
-		#post_content {
-		    margin:6 auto;
-		    padding: 10;
-		    width: 680px;
-		    height: 400px;
-		    align-content: right;
-		    list-style-type: none;
-		    background-color: white;
-		    object-position: center;
-		    background-position: center;
-		}
-
-		#background {
-		    margin: 0 auto;
+		
+		.outer_wrapper{
+		    margin: 0 27.5%;
 		    padding: 0;
-		    width: 720px; 
+		    width: 70%; 
 		    height: 600px;
 		    list-style-type: none;
-		    background-color: white;
-		    border-style:solid;
-		    border-color:#EFE6E3; 
-		    border-width:2px
+		    background: transparent;
+		    
 		}
+
     </style>
     
 </head>
 <body>
-	
-	<script type="text/javascript" src="static/js/scroll_jquery.js"></script>
+	<script type="text/javascript" src="static/welcome-page/js/scroll_jquery.js"></script>
 	<!-- top-bar wrapper -->
 	<div style="width:100%;height:50px;background-color:#FF0800;position:center;margin: 0 auto 0 auto;">
         <!-- settings-->
@@ -169,34 +156,10 @@
 	<div style="width:100%;height:10px;background-color:#FFF8F6;position:center;margin: 0 auto 0 auto;">
 	</div>
 	
-	<!-- Post content -->
-	<div id="outer_wrap" class="w3-container" style="margin: 10px auto 10px auto;width:60%;">
-		<div id = "background" class="w3-container"> 
-			<div style="margin: 0 auto;padding: 0;width:100%;height:15%;list-style-type: none;background-color: white;">
-			</div>
-				<div id="post_content" class="w3-container">
-					<!-- Multimedia content -->
-		            <a href="https://www.pexels.com/photo/mist-misty-fog-foggy-7919/"></a>
-		                <img src="https://pexels.imgix.net/photos/7919/pexels-photo.jpg" style="height:350px;width:690px;" alt="" /> 
-			            <!-- Text content-->
-			            <div>
-			            	<a href="#" style="display:block;text-decoration:none !important;" 
-			            	onClick="window.open('http://www.ndtv.com/world-news/11-turkish-police-officers-killed-in-suicide-bombing-blamed-on-kurdish-rebels-1450764', '_blank')">
-			            	<h4>11 Turkish Police Officers Killed In Suicide Bombing Blamed On Kurdish Rebels</h4>
-			            	<p>Eleven Turkish police officers were killed and 78 people injured today in a suicide truck bombing by suspected Kurdish rebels</p>
-			            	<h5>NDTV.com</h5>
-			            	</a>
-			            </div>
-		    	</div> 
-	    </div>
-	    <!-- space b/w posts colors:FFF8F6,EFE6E3-->
-	    <div style="margin: 0 auto;padding: 0;width: 720px;height: 20px;list-style-type: none;background-color: #FFF8F6;">
-		</div>
+	<!-- Contents block-->
+	<div class="container outer_wrapper">
+		<div id="contentCard"></div>
 	</div>
-
-	<!-- Subsequent posts-->
-    <div id="repeated_content">
-    </div>
 
 </body>
 </html>

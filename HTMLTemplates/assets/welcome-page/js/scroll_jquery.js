@@ -132,18 +132,109 @@
 
 })(jQuery);
 
+// 'csrfmiddlewaretoken':'sOF4XutrqZ8xj7p31GmXZq83F5wBTDp1wr8diBJZ8J3TSg5pTRRDv24rEHEEdtoy'
+
 
 // Script
-var threshold=0;
 $(document).ready(function() {
     $(document).endlessScroll({
         inflowPixels: 300,
         callback: function() {
-             if(threshold < 100000000){
-                //var $img = $('#images li:nth-last-child(2)').clone();
-                var $img = $('#outer_wrap').clone();
-                $('#repeated_content').append($img);
-                threshold ++ ;}
+            
+              $.ajax({
+                      url:'http://127.0.0.1/fetch_post_content',
+                      type:'GET', //GET request should not have CSRF token
+                      //dataType:'JSON', Don't use dataType:JSON
+                      //data:{'csrfmiddlewaretoken': 'sOF4XutrqZ8xj7p31GmXZq83F5wBTDp1wr8diBJZ8J3TSg5pTRRDv24rEHEEdtoy'},//'{{csrf_token}}'},
+                      //data:{'csrfmiddlewaretoken':'{{csrf_token}}'}
+                    }).success(function(successObj){ //fail and success function names are interchanged for experiment
+                        //console.log("At success callback function")
+                        //console.log(successObj);
+                        response = successObj['posts']
+
+                        for (i = 0; i < response.length; i++) { 
+                            obj = JSON.parse(response[i])
+                            if (obj['content_type']=='image')
+                              dynamic_load_imgContent(obj);
+                            else if (obj['content_type']=='audio')
+                              dynamic_load_audioContent(obj)
+                            else if (obj['content_type']=='video')
+                              dynamic_load_videoContent(obj)
+                        }
+                        
+                    }).fail(function(failObj){
+                        console.log("Endless scroll callback function failed!")
+                        console.log(failObj);
+                    });
+
+              function dynamic_load_imgContent(obj){
+                  imgContent = '<div class="row">'+
+                                  '<div class="col s12 m7 ">'+
+                                      '<div class="card hoverable">'+
+                                          '<div class="card-image">'+
+                                              '<img src="http://127.0.0.1/media/'+obj['content_location']+'">'+
+                                                  '<span class="card-title">Card Title</span>'+
+                                          '</div>'+
+                                          '<div class="card-content ">'+
+                                              '<p>'+obj['content_description']+'</p>'+
+                                          '</div>'+
+                                          '<div class="card-action">'+
+                                              'shared by <a href="#" >'+obj['user_fname']+' '+obj['user_lname']+'</a>'+
+                                          '</div>'+
+                                      '</div>'+
+                                  '</div>'+
+                                '</div>'
+
+                  console.log(imgContent);
+                  $('#contentCard').append(imgContent);
+                  return;
+              }
+
+              function dynamic_load_audioContent(obj){
+                  audioContent = '<div class="row">'+
+                                  '<div class="col s12 m7 ">'+
+                                      '<div class="card hoverable">'+
+                                          '<div class="card-image">'+
+                                              '<audio src="http://127.0.0.1/media/'+obj['content_location']+'" style="width:100%;" controls >'+
+                                              '</audio>'+
+                                          '</div>'+
+                                          '<div class="card-content ">'+
+                                              '<p>'+obj['content_description']+'</p>'+
+                                          '</div>'+
+                                          '<div class="card-action">'+
+                                              'shared by <a href="#" >'+obj['user_fname']+' '+obj['user_lname']+'</a>'+
+                                          '</div>'+
+                                      '</div>'+
+                                  '</div>'+
+                                '</div>'
+                  console.log(audioContent);
+                  $('#contentCard').append(audioContent);
+                  return;
+              }
+
+              function dynamic_load_videoContent(obj){
+                  videoContent = '<div class="row">'+
+                                  '<div class="col s12 m7 ">'+
+                                      '<div class="card hoverable">'+
+                                          '<div class="card-image">'+
+                                              '<video src="http://127.0.0.1/media/'+obj['content_location']+'" style="width:100%;height:100%;" controls >'+
+                                              '</video>'+    
+                                          '</div>'+
+                                          '<div class="card-content ">'+
+                                              '<p>'+obj['content_description']+'</p>'+
+                                          '</div>'+
+                                          '<div class="card-action">'+
+                                              'shared by <a href="#" >'+obj['user_fname']+' '+obj['user_lname']+'</a>'+
+                                          '</div>'+
+                                      '</div>'+
+                                  '</div>'+
+                                '</div>'
+                  console.log(videoContent);
+                  $('#contentCard').append(videoContent);
+                  return;
+              }
+
         }
+
     });
 });
