@@ -78,11 +78,12 @@ def validate_registration_attributes(registered):
 
   
 def register(request):
+    
     if request.method=='POST':
         if validate_registration_attributes(request.POST):
             user_uuid = uuid.uuid4()
             try:
-                user = User.objects.create(user_id=user_uuid,
+                user = User.objects.create(user_id=str(user_uuid),
                                         last_login=str(datetime.datetime.now()),
                                         username= request.POST['username'],
                                         first_name= request.POST['first_name'],
@@ -99,8 +100,8 @@ def register(request):
                 topic 'entertainment'
                 '''
                 amqp = AMQ(user.user_id)
-                print "Registration for new user:"+user.username+" userID:"\
-                    +user.user_id+" is successful. Logging in the user"
+                print "Registration for new user:"+user.username+" \
+                    userID:"+user.user_id+" is successful. Logging in the user"
                 login(request,user)
                 return HttpResponseRedirect('/home',"Successfully registered")
             except Exception as err:

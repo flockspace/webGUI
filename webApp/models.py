@@ -79,7 +79,7 @@ class user_model(AbstractBaseUser):
     address = models.CharField(max_length=300,default="None")
     mobilePh = models.CharField(max_length=20,default="None")
     workPh = models.CharField(max_length=20,default="None")
-    workEmail = models.EmailField()
+    workEmail = models.EmailField(default="None")
     last_login = models.CharField(max_length=50,default="None")
     profile_pic = models.ImageField(width_field=None,height_field=None,
                                     blank=True,default="None",

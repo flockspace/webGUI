@@ -65,12 +65,12 @@ def update_profile(request):
         if request.method=='POST':
             new_dict = request.POST
             user = User.objects.get(username=request.user.username)
-            user.email = ( new_dict['email'] or user.email or None)
-            user.workEmail = ( new_dict['workEmail'] or user.workEmail or None)
-            user.mobilePh = ( new_dict['mobilePh'] or user.mobilePh or None)
-            user.workPh = ( new_dict['workPh'] or user.workPh or None)
-            user.address = ( new_dict['livesIn'] or user.address or None)
-            user.myself = ( new_dict['myself'] or user.myself or None)
+            user.email = ( new_dict['email'] or user.email)# or 'None')
+            user.workEmail = ( new_dict['workEmail'] or user.workEmail)# or 'None')
+            user.mobilePh = ( new_dict['mobilePh'] or user.mobilePh)# or 'None')
+            user.workPh = ( new_dict['workPh'] or user.workPh)# or 'None')
+            user.address = ( new_dict['livesIn'] or user.address)# or 'None')
+            user.myself = ( new_dict['myself'] or user.myself)# or 'None')
             user.save()
             context = populate_user_context(request, user.username)
             return redirect("/about", context, "Content-type: text/HTML", 200, None)

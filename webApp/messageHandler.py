@@ -26,7 +26,6 @@ class AMQHandler:
     connection = None
     thisQ = None
     routingKey = ['entertainment'] #topic taken for experimental purpose,
-    consumed_msg = None
 
     def __init__(self,Qname):
         self.connection = pika.BlockingConnection(pika.ConnectionParameters(AMQ_SERVER))
@@ -48,7 +47,7 @@ class AMQHandler:
         return
         
     def useQ(self,Qname):
-        self.thisQ = Qname
+        self.thisQ = str(Qname)
         queue = self.channel.queue_declare(queue=self.thisQ, durable=True)
         for key in self.routingKey:
             self.channel.queue_bind(exchange=EXCHANGE_NAME,
@@ -67,13 +66,14 @@ class AMQHandler:
     def consumer(self):
         '''start_consuming has issue when queue is empty. Although basic_get is
         synchronous call, we do it for each message.'''
+        consumed_msg = None
         method_frame, header_frame, body = self.channel.basic_get(self.thisQ)
         if method_frame:
             print method_frame, header_frame, body
-            self.consumed_msg = body
+            consumed_msg = body
             self.channel.basic_ack(method_frame.delivery_tag)
         else:
             print 'queue Id:',self.thisQ," is empty!"
-        return self.consumed_msg
+        return consumed_msg
 
     

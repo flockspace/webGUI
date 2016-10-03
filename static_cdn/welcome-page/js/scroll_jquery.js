@@ -151,7 +151,7 @@ $(document).ready(function() {
                         //console.log("At success callback function")
                         //console.log(successObj);
                         response = successObj['posts']
-
+                        console.log(response);
                         for (i = 0; i < response.length; i++) { 
                             obj = JSON.parse(response[i])
                             if (obj['content_type']=='image')
