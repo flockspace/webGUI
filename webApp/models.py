@@ -131,6 +131,7 @@ class contentSystems(models.Model):
     type = models.CharField(max_length=10,default="None") #images,audio,video
     category = models.CharField(max_length=30,default="None") #??
     description = models.CharField(max_length=500,default="None")
+    title = models.CharField(max_length=100,default="None")
     location = models.FileField(blank=True,default="None",
                                 upload_to=upload_generic)
     

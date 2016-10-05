@@ -173,7 +173,7 @@ $(document).ready(function() {
                                       '<div class="card hoverable">'+
                                           '<div class="card-image">'+
                                               '<img src="http://127.0.0.1/media/'+obj['content_location']+'">'+
-                                                  '<span class="card-title">Card Title</span>'+
+                                                  '<span class="card-title">'+obj['content_title']+'</span>'+
                                           '</div>'+
                                           '<div class="card-content ">'+
                                               '<p>'+obj['content_description']+'</p>'+

@@ -116,7 +116,6 @@
 			    }
 			    document.getElementById('editSection').style.display="inline";
 			    document.getElementById('finishSection').style.display="none";
-        		
 			   
         	}
 
@@ -124,19 +123,19 @@
         		document.getElementById('edited_form').submit();
 
         		var view = document.getElementsByClassName(viewId);
-			    var i;
-			    for (i = 0; i < view.length; i++) {
-			        view[i].style.display = "inline";
-			    }
+  			    var i;
+  			    for (i = 0; i < view.length; i++) {
+  			        view[i].style.display = "inline";
+  			    }
 
-			    var edit = document.getElementsByClassName(editId);
-			    for (i = 0; i < edit.length; i++) {
-			        edit[i].style.display = "none";
-			    }
-			    document.getElementById('editSection').style.display="inline";
-			    document.getElementById('finishSection').style.display="none";
-        		document.getElementById('finishSection').style.display="none";
-        	}
+  			    var edit = document.getElementsByClassName(editId);
+  			    for (i = 0; i < edit.length; i++) {
+  			        edit[i].style.display = "none";
+  			    }
+  			    document.getElementById('editSection').style.display="inline";
+  			    document.getElementById('finishSection').style.display="none";
+          		document.getElementById('finishSection').style.display="none";
+          }
 
         	function enableUpload(block,contentHolder,input,desc){
         		document.getElementById('upload-images').style.display="none"
@@ -154,10 +153,15 @@
         		document.getElementById(contentHolder).style.visibility="visible" 
 
         		$(document).ready(function(){
-        			$('#image-preview').html('');
-        			$('#audio-preview').first().attr('src','')
-        			$("#video-preview").first().attr('src','')
-        			$('#portfolio-album-preview').html('');
+        		    $('#image-preview').html('');
+        		    $('#audio-preview').first().attr('src','')
+        		    $("#video-preview").first().attr('src','')
+        		    $('#portfolio-album-preview').html('');
+
+                $('#imageContent').val('');
+                $('#audioContent').val('');
+                $('#videoContent').val('');
+                $('#portfolio-album').val('');
         			});
 
         		document.getElementById('imageContent').disabled=true;
@@ -171,12 +175,72 @@
         		document.getElementById('audio_description').disabled=true;
         		document.getElementById('album_description').disabled=true;
         		document.getElementById(desc).disabled=false;
-        		document.getElementById(desc).value=''
+        		document.getElementById(desc).value='';
 
+            document.getElementById('image_heading').disabled = true;
+            document.getElementById('video_heading').disabled = true;
+            document.getElementById('audio_heading').disabled=true;
+
+            switch(input){
+              case "imageContent": 
+                {
+                  document.getElementById('image_heading').disabled=false;
+                  document.getElementById('image_heading').value='';
+                } break;
+             
+
+              case "audioContent": 
+                {
+                  document.getElementById('audio_heading').disabled=false;
+                  document.getElementById('audio_heading').value='';
+                } break;
+
+              case "videoContent": 
+                {
+                  document.getElementById('video_heading').disabled=false;
+                  document.getElementById('video_heading').value='';
+                } break;
+
+            }
         	}
 
+          function cancelUpload(){
+              document.getElementById('upload-images').style.display="none";
+              document.getElementById('upload-audio').style.display="none";
+              document.getElementById('upload-video').style.display="none";
+              document.getElementById('upload-portfolio-album').style.display="none";
 
-        	function finishUpload(){
+              $(document).ready(function(){
+                $('#image-preview').html('');
+                $('#audio-preview').first().attr('src','');
+                $("#video-preview").first().attr('src','');
+                $('#portfolio-album-preview').html('');
+
+                $('#imageContent').val('');
+                $('#audioContent').val('');
+                $('#videoContent').val('');
+                $('#portfolio-album').val('');
+              });
+          }
+
+          function finishUpload(){
+              document.getElementById('upload_content').submit();
+
+              document.getElementById('upload-images').style.display="none";
+              document.getElementById('upload-audio').style.display="none";
+              document.getElementById('upload-video').style.display="none";
+              document.getElementById('upload-portfolio-album').style.display="none";
+
+              $(document).ready(function(){
+                $('#image-preview').html('');
+                $('#audio-preview').first().attr('src','');
+                $("#video-preview").first().attr('src','');
+                $('#portfolio-album-preview').html('');
+
+              });
+          }
+
+        	/*function finishUpload(){
         		var delay=100; //1 second
         		
 				setTimeout(function() {
@@ -199,12 +263,12 @@
 
 				}, delay);
 				document.getElementById('upload_content').submit();
-        	}
+        	} */
 
         	/*JQuery function to show thumbnails of uploaded images*/
         	/*
         	*/
-        	$(document).ready(function() {
+        	$(document).ready(function(){
         		$("#imageContent").on('change', function() {
           		//Get count of selected files
           		var countFiles = $(this)[0].files.length;
@@ -585,13 +649,15 @@
 		</section><!-- end section  onmouseleave="dontDisplay('upload_images')"-->
 		</div>
 
-		<div id='upload-images' style="height:550px;width:650px;position:fixed;top:18%;right:27.5%;border:0px solid;padding:10px;background-color:#F0F0F3;border-radius:9px;display:none;z-index:1">
-				<a href="javascript:void(0);" onclick="finishUpload()" 
+		<div id='upload-images' style="height:620px;width:650px;position:fixed;top:10%;right:27.5%;border:0px solid;padding:10px;background-color:#F0F0F3;border-radius:9px;display:none;z-index:1">
+				<a href="javascript:void(0);" onclick="cancelUpload()" 
 					style="right:5;top:5;float:right;color:red;">X</a>
 				<p>IMAGE UPLOAD</p>
 				<div id="image-preview" style="height:400px;width:auto;border:0px solid;padding:10px;background-color:#FFFFFF;border-radius:2px;">
 				</div>
-				<div style="height:50px;width:auto;border:0px solid;padding:5px;background-color:#FFF8F6;border-radius:2px;">
+				<div style="height:120px;width:auto;border:0px solid;padding:5px;background-color:#FFF8F6;border-radius:2px;">
+          <input id="image_heading" type="text" name="heading" form="upload_content" placeholder="Write content heading here" 
+            style="font-size:24px;font-family:Times;"/>
 					<textarea id="img_description" rows="30" cols="80" name="img_description" form="upload_content"
 						style="resize:none;border:0px solid red;font-size:14px"  
 						placeholder="Write in few words about picture">
@@ -599,50 +665,69 @@
 				</div>
 				<input id="imageContent" type="file" name="imageContent" form="upload_content" 
 						style="float:left;margin:0 10px 0 auto;" />
-				<input type="submit" name="image" onclick="finishUpload()" form="upload_content"
-						style="float:left;margin:0 auto 0 10px;" /> 
+
+        <button type="submit" name="image" value="Submit" class="btn waves-effect waves-light red"  
+              onclick="finishUpload();" form="upload_content" 
+              style="position:absolute;bottom:2px;right:10px;">Submit
+            <i class="material-icons right">send</i>
+        </button>
 		</div>
 
-		<div id='upload-audio' style="height:200px;width:650px;position:fixed;top:18%;right:27.5%;border:0px solid;padding:10px;background-color:#F0F0F3;border-radius:9px;display:none;z-index:1">
-				<a href="javascript:void(0);" onclick="finishUpload()" 
+		<div id='upload-audio' style="height:270px;width:650px;position:fixed;top:18%;right:27.5%;border:0px solid;padding:10px;background-color:#F0F0F3;border-radius:9px;display:none;z-index:1">
+				<a href="javascript:void(0);" onclick="cancelUpload()" 
 					style="right:5;top:5;float:right;color:red;">X</a>
 				<p>AUDIO UPLOAD</p>      
 				<div style="height:50px;width:auto;border:0px solid;padding:10px;background-color:#FFFFFF;border-radius:2px;">
 					<audio id="audio-preview" src="" style="width:99%;height:99%" controls autoplay>
 					</audio>
 				</div>
-				<div style="height:50px;width:auto;border:0px solid;padding:5px;background-color:#FFF8F6;border-radius:2px;">
-					<textarea id="audio_description" rows="30" cols="80" name="audio_description" form="upload_content"		style="resize:none;border:1px solid red;font-size:14px"  
+				<div style="height:120px;width:auto;border:0px solid;padding:5px;background-color:#FFF8F6;border-radius:2px;">
+          <input id="audio_heading" type="text" name="heading" form="upload_content" placeholder="Write content heading here" 
+            style="font-size:24px;font-family:Times;"/>
+					<textarea id="audio_description" rows="30" cols="80" name="audio_description" form="upload_content"		
+          style="resize:none;border:0px solid red;font-size:14px"  
 						placeholder="Write in few words about audio clip">
 					</textarea>
 				</div>
 				<input id="audioContent" type="file" name="audioContent" form="upload_content" 
 						style="float:left;margin:0 10px 0 auto;">
-				<input type="submit" name="audio" onclick="finishUpload()" form="upload_content" 
-						style="float:left;margin:0 auto 0 10px;"> 
+				<!--<input type="submit" name="audio" onclick="finishUpload()" form="upload_content" 
+						style="float:left;margin:0 auto 0 10px;">-->
+        <button type="submit" name="audio" value="Submit" class="btn waves-effect waves-light red"  
+              onclick="finishUpload();document.getElementById('upload_content').submit();" form="upload_content" 
+              style="position:absolute;bottom:2px;right:10px;">Submit
+            <i class="material-icons right">send</i>
+        </button> 
 		</div>
 
 		<div id='upload-video' style="height:550px;width:650px;position:fixed;top:18%;right:27.5%;border:0px solid;padding:10px;background-color:#F0F0F3;border-radius:9px;display:none;z-index:1">
-				<a href="javascript:void(0);" onclick="finishUpload()" 
+				<a href="javascript:void(0);" onclick="cancelUpload()" 
 					style="right:5;top:5;float:right;color:red;">X</a>
 				<p>VIDEO UPLOAD</p>         
-				<div style="height:400px;width:auto;border:0px solid;padding:10px;background-color:#FFFFFF;border-radius:2px;">
+				<div style="height:330px;width:auto;border:0px solid;padding:10px;background-color:#FFFFFF;border-radius:2px;">
 					<video id="video-preview" poster="media/video-background.jpg" src="" width="80%" height="99%" controls autoplay>
 					</video>
 				</div>
-				<div style="height:50px;width:auto;border:0px solid;padding:5px;background-color:#FFF8F6;border-radius:2px;">
-					<textarea id="video_description" rows="30" cols="80" name="video_description" form="upload_content" 		style="resize:none;border:1px solid red;font-size:14px"  
+				<div style="height:120px;width:600;border:0px solid;padding:5px;background-color:#FFF8F6;border-radius:2px;">
+          <input id="video_heading" type="text" name="heading" form="upload_content" placeholder="Write content heading here" 
+            style="font-size:24px;font-family:Times;"/>
+					<textarea id="video_description" rows="30" cols="80" name="video_description" form="upload_content" 		style="resize:none;border:0px solid red;font-size:14px"  
 						placeholder="Write in few words about video clip">
 					</textarea>
 				</div>
 				<input id="videoContent" type="file" name="videoContent" form="upload_content" 
 						style="float:left;margin:0 10px 0 auto;">
-				<input type="submit" name="video" onclick="finishUpload()" form="upload_content" 
-						style="float:left;margin:0 auto 0 10px;"> 
+				<!--<input type="submit" name="video" onclick="finishUpload()" form="upload_content" 
+						style="float:left;margin:0 auto 0 10px;">-->
+        <button type="submit" name="video" value="Submit" class="btn waves-effect waves-light red"  
+              onclick="finishUpload();document.getElementById('upload_content').submit();" form="upload_content" 
+              style="position:absolute;bottom:2px;right:10px;">Submit
+            <i class="material-icons right">send</i>
+        </button> 
 		</div>
 
 		<div id='upload-portfolio-album' style="height:550px;width:650px;position:fixed;top:18%;right:27.5%;border:0px solid;padding:10px;background-color:#F0F0F3;border-radius:9px;display:none;z-index:1">
-				<a href="javascript:void(0);" onclick="finishUpload()" 
+				<a href="javascript:void(0);" onclick="cancelUpload()" 
 					style="right:5;top:5;float:right;color:red;">X</a>
 				<p>ALBUM UPLOAD</p>
 				<div id="portfolio-album-preview" style="height:400px;width:auto;border:0px solid;padding:10px;background-color:#FFFFFF;border-radius:2px;">

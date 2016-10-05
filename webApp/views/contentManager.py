@@ -55,6 +55,7 @@ def upload_images(request):
                                                          type="image",
                                                          category = "entertainment",
                                                          description=request.POST['img_description'],
+                                                         title=request.POST['heading'],
                                                          location=''
                                                          )
                 content_entry.location=request.FILES['imageContent']
@@ -76,8 +77,7 @@ def upload_images(request):
     
     return HttpResponse(200)
     
-def upload_audio(request):
-    
+def upload_audio(request):  
     if request.user.is_authenticated():
         if request.method=='POST' and request.FILES:
             user = User.objects.get(username=request.user.username)
@@ -88,6 +88,7 @@ def upload_audio(request):
                                                          type="audio",
                                                          category = "entertainment",
                                                          description=request.POST['audio_description'],
+                                                         title=request.POST['heading'],
                                                          location=''
                                                          )
                 content_entry.location=request.FILES['audioContent']
@@ -119,6 +120,7 @@ def upload_video(request):
                                                          type="video",
                                                          category = "entertainment", 
                                                          description=request.POST['video_description'],
+                                                         title=request.POST['heading'],
                                                          location=''
                                                          )
                 content_entry.location=request.FILES['videoContent']
@@ -141,6 +143,8 @@ def upload_video(request):
     return HttpResponse(200)
 
 def contentManager(request):
+    import pdb
+    pdb.set_trace()
     if request.user.is_authenticated() and request.method=='POST':
         if 'portfolio-album' in request.POST.keys() and request.POST['portfolio-album']=='Submit':
             upload_portfolio_album(request)
@@ -222,6 +226,7 @@ def populate_AMQ_message(user,content_entry):
             "content_location":str(content_entry.location or None),
             "content_category":str(content_entry.category or None),
             "content_description":str(content_entry.description or None),
+            "content_title":str(content_entry.title or None),
             
             "user_id":str(user.user_id or None),
             "user_fname":str(user.first_name or None),
