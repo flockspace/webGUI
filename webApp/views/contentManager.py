@@ -143,8 +143,6 @@ def upload_video(request):
     return HttpResponse(200)
 
 def contentManager(request):
-    import pdb
-    pdb.set_trace()
     if request.user.is_authenticated() and request.method=='POST':
         if 'portfolio-album' in request.POST.keys() and request.POST['portfolio-album']=='Submit':
             upload_portfolio_album(request)
@@ -229,6 +227,7 @@ def populate_AMQ_message(user,content_entry):
             "content_title":str(content_entry.title or None),
             
             "user_id":str(user.user_id or None),
+            "user_uname":str(user.username or None),
             "user_fname":str(user.first_name or None),
             "user_lname":str(user.last_name or None),
             "user_email":str(user.email or None),
