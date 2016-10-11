@@ -43,13 +43,13 @@ def about(request):
     return HttpResponse(200)
 
 #given any USER ID, show her profile information
-def view_profile(request):
+def view_profile_generic(request):
     if request.user.is_authenticated():
         if request.method=='GET':
-            id=request.GET['id']
-            user = User.objects.get(pk=id)
+            val=request.GET['id']
+            user = User.objects.get(user_id=val)
             context = populate_user_context(request, user.username)
-            return render(request, "generic_profile.html", context, "Content-type: text/HTML", 200, None)
+            return render(request, "profile_view_generic.html", context, "Content-type: text/HTML", 200, None)
         else:
             print "Wrong http request method."
             return HttpResponseRedirect('/home','Wrong http request method.')

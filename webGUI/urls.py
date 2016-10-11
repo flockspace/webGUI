@@ -37,7 +37,7 @@ urlpatterns = [
     
     url(r'^home', profileView.home, name='home'),
     url(r'^about', profileView.about, name='about'),
-    url(r'^view', profileView.view_profile, name='about'),
+    url(r'^userprofile_view', profileView.view_profile_generic, name='userprofile_view'),
     
     url(r'^change_profile_pic', profileUpdates.update_profile_pic, name='change_profile_pic'),
     url(r'^change_banner_pic', profileUpdates.update_banner_pic, name='change_banner_pic'),

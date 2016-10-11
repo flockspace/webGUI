@@ -168,18 +168,30 @@ $(document).ready(function() {
                     });
 
               function dynamic_load_imgContent(obj){
-                  imgContent = '<div class="row">'+
-                                  '<div class="col s12 m7 ">'+
-                                      '<div class="card hoverable">'+
-                                          '<div class="card-image">'+
+                  imgContent = '<div style="height:35px;margin:0px 2px;float:left;">'+
+                                  '<a class="orange-text text-darken-1" style="font-family:times;" href="http://127.0.0.1/userprofile_view?id='+obj['user_id']+'" >'+
+                                    '<img style="width:35px;height:35px;border-radius:50%;" src="http://127.0.0.1/media/'+obj['user_profile_pic']+'"><br>'+
+                                  '</a>'+
+                                '</div>'+ 
+                                '<div class="row">'+
+                                  '<div class="col s12 m6">'+
+                                      '<div style="height:15px;margin:0px 2px;">'+
+                                          '<a class="orange-text text-darken-1" style="font-family:times;" href="http://127.0.0.1/userprofile_view?id='+obj['user_id']+'" >'+
+                                          '@'+obj['user_uname']+
+                                          '</a>'+
+                                      '</div>'+
+                                      '<div class="card">'+
+                                          '<div class="card-image waves-effect waves-block waves-light">'+
                                               '<img src="http://127.0.0.1/media/'+obj['content_location']+'">'+
-                                                  '<span class="card-title">'+obj['content_title']+'</span>'+
                                           '</div>'+
-                                          '<div class="card-content ">'+
-                                              '<p>'+obj['content_description']+'</p>'+
+                                          '<div class="card-title white" style="height:50px;width:auto;">'+
+                                          '<h5 class="w3-small orange-text text-darken-1" style="margin:1% 2%;font-family:times;float:left;">'+obj['content_title']+'</h5>'+//<span class="card-title orange-text text-darken-1"></span>'+
                                           '</div>'+
-                                          '<div class="card-action">'+
-                                              'shared by <a href="#" >'+obj['user_fname']+' '+obj['user_lname']+'</a>'+
+                                          '<div class="divider">'+
+                                          '</div>'+
+                                          '<div class="card-content white">'+
+                                              '<p class="w3-medium gray-text text-lighten-4" style="margin:1% 2%;font-family:arial;float:left;">'+
+                                              obj['content_description']+'</p>'+
                                           '</div>'+
                                       '</div>'+
                                   '</div>'+
@@ -191,44 +203,74 @@ $(document).ready(function() {
               }
 
               function dynamic_load_audioContent(obj){
-                  audioContent = '<div class="row">'+
-                                  '<div class="col s12 m7 ">'+
-                                      '<div class="card hoverable">'+
-                                          '<div class="card-image">'+
+                  audioContent = '<div style="height:35px;margin:0px 2px;float:left;">'+
+                                  '<a class="orange-text text-darken-1" style="font-family:times;" href="http://127.0.0.1/userprofile_view?id='+obj['user_id']+'" >'+
+                                    '<img style="width:35px;height:35px;border-radius:50%;" src="http://127.0.0.1/media/'+obj['user_profile_pic']+'"><br>'+
+                                  '</a>'+
+                                '</div>'+
+                                
+                                '<div class="row">'+
+                                  '<div class="col s12 m6 ">'+
+                                      '<div style="height:15px;margin:0px 2px;">'+
+                                          '<a class="orange-text text-darken-1" style="font-family:times;" href="http://127.0.0.1/userprofile_view?id='+obj['user_id']+'" >'+
+                                          '@'+obj['user_uname']+
+                                          '</a>'+
+                                      '</div>'+
+                                      '<div class="card">'+
+                                          '<div class="card waves-effect waves-block waves-light">'+
                                               '<audio src="http://127.0.0.1/media/'+obj['content_location']+'" style="width:100%;" controls >'+
                                               '</audio>'+
                                           '</div>'+
-                                          '<div class="card-content ">'+
-                                              '<p>'+obj['content_description']+'</p>'+
+                                          '<div class="card-title white" style="height:50px;width:auto;">'+
+                                          '<h5 class="w3-small orange-text text-darken-1" style="margin:1% 2%;font-family:times;float:left;">'+obj['content_title']+'</h5>'+//<span class="card-title orange-text text-darken-1"></span>'+
                                           '</div>'+
-                                          '<div class="card-action">'+
-                                              'shared by <a href="#" >'+obj['user_fname']+' '+obj['user_lname']+'</a>'+
+                                          '<div class="divider">'+
+                                          '</div>'+
+                                          '<div class="card-content white">'+
+                                              '<p class="w3-medium gray-text text-lighten-4" style="margin:1% 2%;font-family:arial;float:left;">'+
+                                              obj['content_description']+'</p>'+
                                           '</div>'+
                                       '</div>'+
                                   '</div>'+
                                 '</div>'
+                                
                   console.log(audioContent);
                   $('#contentCard').append(audioContent);
                   return;
               }
 
               function dynamic_load_videoContent(obj){
-                  videoContent = '<div class="row">'+
-                                  '<div class="col s12 m7 ">'+
-                                      '<div class="card hoverable">'+
-                                          '<div class="card-image">'+
+                  videoContent = '<div style="height:35px;margin:0px 2px;float:left;">'+
+                                  '<a class="orange-text text-darken-1" style="font-family:times;" href="http://127.0.0.1/userprofile_view?id='+obj['user_id']+'" >'+
+                                    '<img style="width:35px;height:35px;border-radius:50%;" src="http://127.0.0.1/media/'+obj['user_profile_pic']+'"><br>'+
+                                  '</a>'+
+                                '</div>'+ 
+                                
+                                '<div class="row">'+
+                                  '<div class="col s12 m6 ">'+
+                                      '<div style="height:15px;margin:0px 2px;">'+
+                                          '<a class="orange-text text-darken-1" style="font-family:times;" href="http://127.0.0.1/userprofile_view?id='+obj['user_id']+'" >'+
+                                          '@'+obj['user_uname']+
+                                          '</a>'+
+                                      '</div>'+
+                                      '<div class="card">'+
+                                          '<div class="card">'+
                                               '<video src="http://127.0.0.1/media/'+obj['content_location']+'" style="width:100%;height:100%;" controls >'+
                                               '</video>'+    
                                           '</div>'+
-                                          '<div class="card-content ">'+
-                                              '<p>'+obj['content_description']+'</p>'+
+                                          '<div class="card-title white" style="height:50px;width:auto;">'+
+                                          '<h5 class="w3-small orange-text text-darken-1" style="margin:1% 2%;font-family:times;float:left;">'+obj['content_title']+'</h5>'+//<span class="card-title orange-text text-darken-1"></span>'+
                                           '</div>'+
-                                          '<div class="card-action">'+
-                                              'shared by <a href="#" >'+obj['user_fname']+' '+obj['user_lname']+'</a>'+
+                                          '<div class="divider">'+
+                                          '</div>'+
+                                          '<div class="card-content white">'+
+                                              '<h5 class="w3-medium gray-text text-lighten-4" style="margin:1% 2%;font-family:arial;float:left;">'+
+                                              obj['content_description']+'</h5>'+
                                           '</div>'+
                                       '</div>'+
                                   '</div>'+
                                 '</div>'
+
                   console.log(videoContent);
                   $('#contentCard').append(videoContent);
                   return;

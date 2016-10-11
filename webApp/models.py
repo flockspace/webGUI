@@ -129,9 +129,10 @@ class contentSystems(models.Model):
     user = models.ForeignKey('user_model', on_delete=models.CASCADE,
                              default="None")
     type = models.CharField(max_length=10,default="None") #images,audio,video
-    category = models.CharField(max_length=30,default="None") #??
+    category = models.CharField(max_length=30,default="None") #Contents can be routed based on its category
     description = models.CharField(max_length=500,default="None")
     title = models.CharField(max_length=100,default="None")
+    created_on = models.DateTimeField(auto_now_add=True)
     location = models.FileField(blank=True,default="None",
                                 upload_to=upload_generic)
     

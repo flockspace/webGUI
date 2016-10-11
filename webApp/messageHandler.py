@@ -26,6 +26,7 @@ class AMQHandler:
     connection = None
     thisQ = None
     routingKey = ['entertainment'] #topic taken for experimental purpose,
+    args={'x-max-length':50}
 
     def __init__(self,Qname):
         self.connection = pika.BlockingConnection(pika.ConnectionParameters(AMQ_SERVER))
@@ -48,7 +49,7 @@ class AMQHandler:
         
     def useQ(self,Qname):
         self.thisQ = str(Qname)
-        queue = self.channel.queue_declare(queue=self.thisQ, durable=True)
+        queue = self.channel.queue_declare(queue=self.thisQ, durable=True,arguments=self.args)
         for key in self.routingKey:
             self.channel.queue_bind(exchange=EXCHANGE_NAME,
                                 queue=self.thisQ,
